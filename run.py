@@ -56,10 +56,16 @@ def api_wx():
                     content = "功能待开发，你说的是: " + rec_msg.Content
                     reply_msg = reply.TextMsg(to_user, from_user, content)
                     return reply_msg.send()
-                if isinstance(rec_msg, receive.ImageMsg):
+                elif isinstance(rec_msg, receive.ImageMsg):
                     media_id = rec_msg.MediaId
                     reply_msg = reply.ImageMsg(to_user, from_user, media_id)
                     return reply_msg.send()
+                elif isinstance(rec_msg, receive.EventMsg):
+                    if rec_msg.Event == 'CLICK' and isinstance(rec_msg, receive.Click):
+                        if rec_msg.EventKey == 'mpGuide':
+                            content = u"编写中，尚未完成".encode('utf-8')
+                            reply_msg = reply.TextMsg(to_user, from_user, content)
+                            return reply_msg.send()
                 else:
                     return reply.Msg().send()
             else:
@@ -84,7 +90,7 @@ def is_windows_os():
 
 
 if __name__ == '__main__':
-    token = basic.Basic()
+    my_token = basic.Basic()
     # token.run()
 
     mm = menu.Menu()
@@ -126,7 +132,7 @@ if __name__ == '__main__':
           ]
     }
     """
-    access_token = token.get_access_token()
+    access_token = my_token.get_access_token()
     mm.create(postJson, access_token)
 
     ip = get_ip()
