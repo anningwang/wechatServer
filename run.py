@@ -6,6 +6,8 @@ import receive
 import hashlib
 import platform
 import socket
+import basic
+import menu
 
 app = Flask(__name__)
 
@@ -50,11 +52,11 @@ def api_wx():
             if isinstance(rec_msg, receive.Msg):
                 to_user = rec_msg.FromUserName
                 from_user = rec_msg.ToUserName
-                if rec_msg.MsgType == 'text':
+                if isinstance(rec_msg, receive.TextMsg):
                     content = "功能待开发，你说的是: " + rec_msg.Content
                     reply_msg = reply.TextMsg(to_user, from_user, content)
                     return reply_msg.send()
-                if rec_msg.MsgType == 'image':
+                if isinstance(rec_msg, receive.ImageMsg):
                     media_id = rec_msg.MediaId
                     reply_msg = reply.ImageMsg(to_user, from_user, media_id)
                     return reply_msg.send()
@@ -82,5 +84,50 @@ def is_windows_os():
 
 
 if __name__ == '__main__':
+    token = basic.Basic()
+    token.run()
+
+    mm = menu.Menu()
+    postJson = """
+    {
+        "button":
+        [
+            {
+                "type": "click",
+                "name": "开发指引",
+                "key":  "mpGuide"
+            },
+            {
+                "name": "公众平台",
+                "sub_button":
+                [
+                    {
+                        "type": "view",
+                        "name": "更新公告",
+                        "url": "http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1418702138&token=&lang=zh_CN"
+                    },
+                    {
+                        "type": "view",
+                        "name": "接口权限说明",
+                        "url": "http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1418702138&token=&lang=zh_CN"
+                    },
+                    {
+                        "type": "view",
+                        "name": "返回码说明",
+                        "url": "http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433747234&token=&lang=zh_CN"
+                    }
+                ]
+            },
+            {
+                "type": "media_id",
+                "name": "旅行",
+                "media_id": "z2zOokJvlzCXXNhSjF46gdx6rSghwX2xOD5GUV9nbX4"
+            }
+          ]
+    }
+    """
+    access_token = token.get_access_token()
+    mm.create(postJson, access_token)
+
     ip = get_ip()
     app.run(host=ip, port=80)
