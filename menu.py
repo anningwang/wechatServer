@@ -67,7 +67,7 @@ if __name__ == '__main__':
             {
                 "type": "click",
                 "name": "旅行",
-                "key": ""
+                "key": "mp"
             }
           ]
     }
