@@ -23,7 +23,7 @@ def api_wx():
         signature = obj.get('signature')
         timestamp = obj.get('timestamp')
         nonce = obj.get('nonce')
-        echostr = obj.get('echostr')
+        echo_str = obj.get('echostr')
         token = "hzwugjToken"  # 请按照公众平台官网\基本配置中信息填写
 
         list_4_signature = [token, timestamp, nonce]
@@ -36,7 +36,7 @@ def api_wx():
         print signature
         if hashcode == signature:
             print 'success!'
-            return echostr
+            return echo_str
         else:
             print 'fail!'
             return ''
@@ -47,17 +47,22 @@ def api_wx():
             print 'web_data', web_data
 
             rec_msg = receive.parse_xml(web_data)
-            if isinstance(rec_msg, receive.TextMsg):
+            if isinstance(rec_msg, receive.Msg):
                 to_user = rec_msg.FromUserName
                 from_user = rec_msg.ToUserName
-                content = "功能待开发，你说的是: " + rec_msg.Content
-                reply_msg = reply.TextMsg(to_user, from_user, content)
-                ret = reply_msg.send()
-                print 'reply', ret
-                return ret
+                if rec_msg.MsgType == 'text':
+                    content = "功能待开发，你说的是: " + rec_msg.Content
+                    reply_msg = reply.TextMsg(to_user, from_user, content)
+                    return reply_msg.send()
+                if rec_msg.MsgType == 'image':
+                    media_id = rec_msg.MediaId
+                    reply_msg = reply.ImageMsg(to_user, from_user, media_id)
+                    return reply_msg.send()
+                else:
+                    return reply.Msg().send()
             else:
                 print "暂且不处理"
-                return "success"
+                return reply.Msg().send()
         except Exception, args:
             print 'args', args
             return args
