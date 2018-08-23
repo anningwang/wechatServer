@@ -60,14 +60,16 @@ def api_wx():
                     media_id = rec_msg.MediaId
                     reply_msg = reply.ImageMsg(to_user, from_user, media_id)
                     return reply_msg.send()
-                elif isinstance(rec_msg, receive.EventMsg):
-                    if rec_msg.Event == 'CLICK' and isinstance(rec_msg, receive.Click):
-                        if rec_msg.EventKey == 'mpGuide':
-                            content = u"编写中，尚未完成".encode('utf-8')
-                            reply_msg = reply.TextMsg(to_user, from_user, content)
-                            return reply_msg.send()
                 else:
                     return reply.Msg().send()
+            elif isinstance(rec_msg, receive.EventMsg):
+                to_user = rec_msg.FromUserName
+                from_user = rec_msg.ToUserName
+                if rec_msg.Event == 'CLICK' and isinstance(rec_msg, receive.Click):
+                    if rec_msg.EventKey == 'mpGuide':
+                        content = u"编写中，尚未完成".encode('utf-8')
+                        reply_msg = reply.TextMsg(to_user, from_user, content)
+                        return reply_msg.send()
             else:
                 print "暂且不处理"
                 return reply.Msg().send()
