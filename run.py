@@ -85,7 +85,7 @@ def is_windows_os():
 
 if __name__ == '__main__':
     token = basic.Basic()
-    token.run()
+    # token.run()
 
     mm = menu.Menu()
     postJson = """
