@@ -15,7 +15,7 @@ def hello_world():
 
 @app.route('/api/wx',  methods=['GET', 'POST'])
 def api_wx():
-    handle.WxHandle.process_request(request.method, request.args, request.data)
+    return handle.WxHandle.process_request(request.method, request.args, request.data)
 
 
 def get_ip():
