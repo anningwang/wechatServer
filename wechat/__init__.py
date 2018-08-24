@@ -3,6 +3,7 @@
 
 from apscheduler.schedulers.background import BackgroundScheduler
 import threading
+import datetime
 import basic
 import menu
 
@@ -17,6 +18,11 @@ def job_get_token():
     __q.acquire()  # acquire the lock
     __token.run(2)
     __q.release()  # release the lock
+
+
+@scheduler.scheduled_job('date', run_date=datetime.datetime.now() + datetime.timedelta(seconds=5))
+def job_create_menu():
+    create_menu()
 
 
 scheduler.start()
@@ -37,6 +43,7 @@ def get_token_expire_for_wx():
 
 
 def create_menu():
+    print 'enter create_menu()'
     menu_json = """
         {
             "button":

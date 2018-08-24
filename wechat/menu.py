@@ -9,6 +9,7 @@ class Menu(object):
 
     @staticmethod
     def create(post_data, access_token):
+        print 'access_token:', access_token
         post_url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s" % access_token
         if isinstance(post_data, unicode):
             post_data = post_data.encode('utf-8')
