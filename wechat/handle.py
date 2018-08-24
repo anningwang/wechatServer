@@ -102,7 +102,7 @@ class WxHandle(object):
         app_id = param.get('appid')
         app_secret = param.get('secret')
         if app_id is None:
-            obj = json.loads(param)
+            obj = param[0]
             print 'obj=', obj
             app_id = obj.get('appid')
             app_secret = obj.get('secret')

@@ -23,8 +23,8 @@ class Basic:
         if is_windows_os():
             post_url = "http://47.106.172.59/api/wx/token"
             values = {'appid': APP_ID, 'secret': APP_SECRET}
-            # data = json.dumps(values)
-            data = urllib.urlencode(values)
+            data = json.dumps(values)
+            # data = urllib.urlencode(values)
             req = urllib2.Request(url=post_url, data=data)
             url_resp = urllib2.urlopen(req)
         else:
