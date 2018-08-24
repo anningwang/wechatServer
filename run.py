@@ -70,6 +70,7 @@ def api_wx():
                         content = u"编写中，尚未完成".encode('utf-8')
                         reply_msg = reply.TextMsg(to_user, from_user, content)
                         return reply_msg.send()
+                return reply.Msg().send()
             else:
                 print "暂且不处理"
                 return reply.Msg().send()
