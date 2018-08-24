@@ -20,6 +20,7 @@ class Basic:
                    (app_id, app_secret)
         url_resp = urllib.urlopen(post_url)
         url_resp = json.loads(url_resp.read())
+        print url_resp
         self.__accessToken = url_resp['access_token']
         self.__leftTime = url_resp['expires_in']
 
