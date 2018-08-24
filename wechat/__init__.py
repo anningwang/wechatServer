@@ -29,42 +29,43 @@ def get_access_token_for_wx():
     return token
 
 
-menu_json = """
-    {
-        "button":
-        [
-            {
-                "type": "click",
-                "name": "开发指引",
-                "key":  "mpGuide"
-            },
-            {
-                "name": "公众平台",
-                "sub_button":
-                [
-                    {
-                        "type": "view",
-                        "name": "更新公告",
-                        "url": "http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1418702138&token=&lang=zh_CN"
-                    },
-                    {
-                        "type": "view",
-                        "name": "接口权限说明",
-                        "url": "http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1418702138&token=&lang=zh_CN"
-                    },
-                    {
-                        "type": "view",
-                        "name": "返回码说明",
-                        "url": "http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433747234&token=&lang=zh_CN"
-                    }
-                ]
-            },
-            {
-                "type": "click",
-                "name": "测试",
-                "key": "mp"
-            }
-          ]
-    }
-    """
-menu.Menu.create(menu_json, get_access_token_for_wx())      # 创建微信公众号菜单
+def create_menu():
+    menu_json = """
+        {
+            "button":
+            [
+                {
+                    "type": "click",
+                    "name": "开发指引",
+                    "key":  "mpGuide"
+                },
+                {
+                    "name": "公众平台",
+                    "sub_button":
+                    [
+                        {
+                            "type": "view",
+                            "name": "更新公告",
+                            "url": "http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1418702138&token=&lang=zh_CN"
+                        },
+                        {
+                            "type": "view",
+                            "name": "接口权限说明",
+                            "url": "http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1418702138&token=&lang=zh_CN"
+                        },
+                        {
+                            "type": "view",
+                            "name": "返回码说明",
+                            "url": "http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433747234&token=&lang=zh_CN"
+                        }
+                    ]
+                },
+                {
+                    "type": "click",
+                    "name": "测试",
+                    "key": "mp"
+                }
+              ]
+        }
+        """
+    menu.Menu.create(menu_json, get_access_token_for_wx())      # 创建微信公众号菜单
