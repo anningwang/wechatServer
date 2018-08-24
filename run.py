@@ -20,6 +20,7 @@ def api_wx():
 @app.route('/api/wx/token',  methods=['GET', 'POST'])
 def api_wx_token():
     param = request.form if request.json is None else request.json
+    print param, request.form, request.json
     return jsonify(handle.WxHandle.get_token(param))
 
 
