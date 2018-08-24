@@ -58,7 +58,7 @@ class WxHandle(object):
                         if rec_msg.EventKey == 'mpGuide':
                             content = u"编写中，尚未完成".encode('utf-8')
                             reply_msg = reply.TextMsg(to_user, from_user, content)
-                            WxHandle.get_union_id(open_id, get_access_token_for_wx)
+                            WxHandle.get_union_id(open_id, get_access_token_for_wx())
                             return reply_msg.send()
 
                 print "暂且不处理"
