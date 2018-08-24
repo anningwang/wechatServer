@@ -27,7 +27,7 @@ class Basic:
     def get_access_token(self):
         if self.__leftTime < 60:
             self.__real_get_access_token()
-            return self.__accessToken
+        return self.__accessToken
 
     def run(self, inc=2):
         if self.__leftTime > 60:
