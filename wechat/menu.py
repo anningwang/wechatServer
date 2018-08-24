@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # filename: menu.py
 import urllib
-from basic import Basic
+from . import get_access_token_for_wx
 
 
 class Menu(object):
@@ -72,5 +72,5 @@ if __name__ == '__main__':
           ]
     }
     """
-    my_access_token = Basic().get_access_token()
+    my_access_token = get_access_token_for_wx()
     myMenu.create(postJson, my_access_token)
