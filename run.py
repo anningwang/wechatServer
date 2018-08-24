@@ -1,9 +1,8 @@
 # -*- coding:utf-8 -*-
 
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from wechat import handle
-import platform
-import socket
+from tools.getip import get_ip
 
 app = Flask(__name__)
 
@@ -18,17 +17,10 @@ def api_wx():
     return handle.WxHandle.process_request(request.method, request.args, request.data)
 
 
-def get_ip():
-    if is_windows_os():
-        hostname = socket.gethostname()
-        ip_address = socket.gethostbyname(hostname)
-    else:
-        ip_address = '0.0.0.0'
-    return ip_address
-
-
-def is_windows_os():
-    return 'Windows' in platform.system()
+@app.route('/api/wx/token',  methods=['GET', 'POST'])
+def api_wx_token():
+    param = request.form if request.json is None else request.json
+    return jsonify(handle.WxHandle.get_token(param))
 
 
 if __name__ == '__main__':

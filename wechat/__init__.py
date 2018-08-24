@@ -13,7 +13,7 @@ scheduler = BackgroundScheduler()
 
 
 @scheduler.scheduled_job('interval', id='job_id_wx_token', seconds=2)
-def job_function():
+def job_get_token():
     __q.acquire()  # acquire the lock
     __token.run(2)
     __q.release()  # release the lock
@@ -24,9 +24,16 @@ scheduler.start()
 
 def get_access_token_for_wx():
     __q.acquire()
-    token = __token.get_access_token()
+    token, left_time = __token.get_access_token()
     __q.release()
-    return token
+    return token, left_time
+
+
+def get_token_expire_for_wx():
+    __q.acquire()
+    expire_in = __token.get_access_token()
+    __q.release()
+    return expire_in
 
 
 def create_menu():
@@ -68,4 +75,5 @@ def create_menu():
               ]
         }
         """
-    menu.Menu.create(menu_json, get_access_token_for_wx())      # 创建微信公众号菜单
+    token, = get_access_token_for_wx()
+    menu.Menu.create(menu_json, token)      # 创建微信公众号菜单

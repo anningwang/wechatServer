@@ -4,6 +4,7 @@ import hashlib
 import urllib
 import json
 from wechat import reply, receive, get_access_token_for_wx
+from basic import APP_ID, APP_SECRET
 
 
 class WxHandle(object):
@@ -59,7 +60,8 @@ class WxHandle(object):
                             content = u"编写中，尚未完成".encode('utf-8')
                             reply_msg = reply.TextMsg(to_user, from_user, content)
 
-                            WxHandle.get_union_id(open_id, get_access_token_for_wx())
+                            token, = get_access_token_for_wx()
+                            WxHandle.get_union_id(open_id, token)
 
                             return reply_msg.send()
 
@@ -85,3 +87,22 @@ class WxHandle(object):
         resp = urllib.urlopen(url)
         resp = json.loads(resp.read())
         print resp
+
+    @staticmethod
+    def get_token(param):
+        """
+        获取token， 为 业务服务器获取 token。
+        :param param:  {
+            appid:      app id, 同 从 腾讯服务器获取 token 的 app id
+            secret:     app secret,  同 从 腾讯服务器获取 token 的 app secret
+        }
+        :return:
+        """
+
+        app_id = param.get('appid')
+        app_secret = param.get('secret')
+        if app_id == APP_ID and app_secret == APP_SECRET:
+            token, left_time = get_access_token_for_wx()
+            return {'access_token': token, 'expires_in': left_time}
+        else:
+            return {'errorCode': 50000, 'msg': u'输入参数错误，需要正确的app id和app secret'}
