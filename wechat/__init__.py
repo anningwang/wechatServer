@@ -76,7 +76,7 @@ def create_menu():
                 },
                 {
                     "type": "click",
-                    "name": "测试",
+                    "name": "你好",
                     "key": "mp"
                 }
               ]
