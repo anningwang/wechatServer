@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # filename: menu.py
 import urllib
-from . import get_access_token_for_wx
+from wechat import get_access_token_for_wx
 
 
 class Menu(object):

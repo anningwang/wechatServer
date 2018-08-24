@@ -3,7 +3,7 @@
 import hashlib
 import urllib
 import json
-from . import reply, receive, get_access_token_for_wx
+from wechat import reply, receive, get_access_token_for_wx
 
 
 class WxHandle(object):
