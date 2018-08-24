@@ -101,6 +101,7 @@ class WxHandle(object):
 
         app_id = param.get('appid')
         app_secret = param.get('secret')
+        print 'app id, secret=', app_id, app_secret
         if app_id == APP_ID and app_secret == APP_SECRET:
             token, left_time = get_access_token_for_wx()
             return {'access_token': token, 'expires_in': left_time}

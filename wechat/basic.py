@@ -6,8 +6,8 @@ import urllib2
 import json
 from tools.getip import is_windows_os
 
-APP_ID = "wx7f16d7b8d26a4970"
-APP_SECRET = "cd873d15f0c4ae0d1460269ebfff2f9f"
+APP_ID = u"wx7f16d7b8d26a4970"
+APP_SECRET = u"cd873d15f0c4ae0d1460269ebfff2f9f"
 
 
 class Basic:
