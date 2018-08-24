@@ -75,5 +75,4 @@ def create_menu():
               ]
         }
         """
-    token, = get_access_token_for_wx()
-    menu.Menu.create(menu_json, token)      # 创建微信公众号菜单
+    menu.Menu.create(menu_json, get_access_token_for_wx()[0])      # 创建微信公众号菜单

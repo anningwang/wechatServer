@@ -60,8 +60,7 @@ class WxHandle(object):
                             content = u"编写中，尚未完成".encode('utf-8')
                             reply_msg = reply.TextMsg(to_user, from_user, content)
 
-                            token, = get_access_token_for_wx()
-                            WxHandle.get_union_id(open_id, token)
+                            WxHandle.get_union_id(open_id, get_access_token_for_wx()[0])
 
                             return reply_msg.send()
 
@@ -98,14 +97,8 @@ class WxHandle(object):
         }
         :return:
         """
-
         app_id = param.get('appid')
         app_secret = param.get('secret')
-        if app_id is None:
-            obj = param[0]
-            print 'obj=', obj
-            app_id = obj.get('appid')
-            app_secret = obj.get('secret')
 
         print 'app id, secret=', app_id, app_secret
         if app_id == APP_ID and app_secret == APP_SECRET:
