@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 # filename: handle.py
 import hashlib
-from . import reply, receive
+import urllib
+import json
+from . import reply, receive, get_access_token_for_wx
 
 
 class WxHandle(object):
@@ -9,10 +11,11 @@ class WxHandle(object):
     def process_request(method, args, xml=None):
         obj = args
         print 'args=', obj
+
+        signature = obj.get('signature')
+        timestamp = obj.get('timestamp')
+        nonce = obj.get('nonce')
         if method == 'GET':
-            signature = obj.get('signature')
-            timestamp = obj.get('timestamp')
-            nonce = obj.get('nonce')
             echo_str = obj.get('echostr')
             token = "hzwugjToken"  # 请按照公众平台官网\基本配置中信息填写
 
@@ -34,7 +37,8 @@ class WxHandle(object):
             try:
                 web_data = xml
                 print 'web_data', web_data
-
+                open_id = obj.get('openid')
+                print 'openid=', open_id
                 rec_msg = receive.parse_xml(web_data)
                 if isinstance(rec_msg, receive.Msg):
                     to_user = rec_msg.FromUserName
@@ -47,8 +51,6 @@ class WxHandle(object):
                         media_id = rec_msg.MediaId
                         reply_msg = reply.ImageMsg(to_user, from_user, media_id)
                         return reply_msg.send()
-                    else:
-                        return reply.Msg().send()
                 elif isinstance(rec_msg, receive.EventMsg):
                     to_user = rec_msg.FromUserName
                     from_user = rec_msg.ToUserName
@@ -56,11 +58,28 @@ class WxHandle(object):
                         if rec_msg.EventKey == 'mpGuide':
                             content = u"编写中，尚未完成".encode('utf-8')
                             reply_msg = reply.TextMsg(to_user, from_user, content)
+                            WxHandle.get_union_id(open_id, get_access_token_for_wx)
                             return reply_msg.send()
-                    return reply.Msg().send()
-                else:
-                    print "暂且不处理"
-                    return reply.Msg().send()
+
+                print "暂且不处理"
+                return reply.Msg().send()
             except Exception, a:
                 print 'args', a
                 return a
+
+    @staticmethod
+    def get_union_id(open_id, access_token):
+        """
+        接口调用请求说明
+        http请求方式: GET
+        https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
+        :param open_id:
+        :param access_token:
+        :return:
+        """
+        url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token=%s&openid=%s&lang=zh_CN' % \
+              (access_token, open_id)
+        resp = urllib.urlopen(url)
+        print resp
+        resp = json.loads(resp.read())
+        print resp
