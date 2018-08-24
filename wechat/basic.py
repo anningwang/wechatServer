@@ -21,7 +21,7 @@ class Basic:
 
     def __real_get_access_token(self):
         if is_windows_os():
-            post_url = "http://47.106.172.59/wx/api/token"
+            post_url = "http://47.106.172.59/api/wx/token"
             post_data = {'appid': APP_ID, 'secret': APP_SECRET}
             data = json.dumps(post_data)
             req = urllib2.Request(url=post_url, data=data)
