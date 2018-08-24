@@ -2,11 +2,13 @@
 #  filename: basic.py
 
 import urllib
-import time
 import json
 
 
 class Basic:
+    """
+    获取公众号的 access token
+    """
     def __init__(self):
         self.__accessToken = ''
         self.__leftTime = 0
@@ -22,14 +24,12 @@ class Basic:
         self.__leftTime = url_resp['expires_in']
 
     def get_access_token(self):
-        if self.__leftTime < 10:
+        if self.__leftTime < 60:
             self.__real_get_access_token()
             return self.__accessToken
 
-    def run(self):
-        while True:
-            if self.__leftTime > 10:
-                time.sleep(2)
-                self.__leftTime -= 2
-            else:
-                self.__real_get_access_token()
+    def run(self, inc=2):
+        if self.__leftTime > 60:
+            self.__leftTime -= inc
+        else:
+            self.__real_get_access_token()

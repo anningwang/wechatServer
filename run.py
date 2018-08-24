@@ -1,13 +1,10 @@
 # -*- coding:utf-8 -*-
 
 from flask import Flask, request
-import reply
-import receive
+from wechat import receive, reply
 import hashlib
 import platform
 import socket
-import basic
-import menu
 
 app = Flask(__name__)
 
@@ -44,7 +41,8 @@ def api_wx():
             return ''
     else:
         try:
-            # print 'request', request
+            obj = request.args
+            print obj
             web_data = request.data
             print 'web_data', web_data
 
@@ -93,50 +91,5 @@ def is_windows_os():
 
 
 if __name__ == '__main__':
-    my_token = basic.Basic()
-    # token.run()
-
-    mm = menu.Menu()
-    postJson = """
-    {
-        "button":
-        [
-            {
-                "type": "click",
-                "name": "开发指引",
-                "key":  "mpGuide"
-            },
-            {
-                "name": "公众平台",
-                "sub_button":
-                [
-                    {
-                        "type": "view",
-                        "name": "更新公告",
-                        "url": "http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1418702138&token=&lang=zh_CN"
-                    },
-                    {
-                        "type": "view",
-                        "name": "接口权限说明",
-                        "url": "http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1418702138&token=&lang=zh_CN"
-                    },
-                    {
-                        "type": "view",
-                        "name": "返回码说明",
-                        "url": "http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433747234&token=&lang=zh_CN"
-                    }
-                ]
-            },
-            {
-                "type": "media_id",
-                "name": "旅行",
-                "media_id": "z2zOokJvlzCXXNhSjF46gdx6rSghwX2xOD5GUV9nbX4"
-            }
-          ]
-    }
-    """
-    access_token = my_token.get_access_token()
-    mm.create(postJson, access_token)
-
     ip = get_ip()
     app.run(host=ip, port=80)

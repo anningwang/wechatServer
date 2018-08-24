@@ -73,5 +73,4 @@ if __name__ == '__main__':
     }
     """
     my_access_token = Basic().get_access_token()
-    # myMenu.delete(access_token)
     myMenu.create(postJson, my_access_token)
