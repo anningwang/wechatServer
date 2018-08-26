@@ -16,8 +16,8 @@ def parse_xml(web_data):
         event_type = xml_data.find('Event').text
         if event_type == 'CLICK':
             return Click(xml_data)
-        # elif event_type in ('subscribe', 'unsubscribe'):
-        # return Subscribe(xmlData)
+        elif event_type in ('subscribe', 'unsubscribe'):
+            return Subscribe(xml_data)
         # elif event_type == 'VIEW':
         # return View(xmlData)
         # elif event_type == 'LOCATION':
@@ -58,6 +58,12 @@ class EventMsg(object):
 
 
 class Click(EventMsg):
+    def __init__(self, xml_data):
+        EventMsg.__init__(self, xml_data)
+        self.EventKey = xml_data.find('EventKey').text
+
+
+class Subscribe(EventMsg):
     def __init__(self, xml_data):
         EventMsg.__init__(self, xml_data)
         self.EventKey = xml_data.find('EventKey').text
