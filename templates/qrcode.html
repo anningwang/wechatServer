@@ -38,7 +38,7 @@
         */
         //生成二维码
         $("#erWeiMa").qrcode({
-            render:"canvas",  //table canvas
+            render:"table",  //table canvas
             text:utf16to8($("#inputStr").val())
         });
         $("#current").append($("#inputStr").val());

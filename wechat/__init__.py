@@ -86,7 +86,7 @@ def create_menu():
                         {
                             "type": "view",
                             "name": "测试二维码",
-                            "url": "http://47.106.172.59/api/wx/qrcode"
+                            "url": "http://47.106.172.59/api/wx/qrcode"        // www.hzwugj.com   47.106.172.59
                         },
                     ]
                 }
