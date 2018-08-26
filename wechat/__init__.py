@@ -75,11 +75,22 @@ def create_menu():
                     ]
                 },
                 {
-                    "type": "click",
-                    "name": "你好",
-                    "key": "mp"
+                    "name": "更多",
+                    "sub_button":
+                    [
+                        {
+                            "type": "click",
+                            "name": "你好",
+                            "key": "mpHello"
+                        },
+                        {
+                            "type": "view",
+                            "name": "测试二维码",
+                            "url": "http://47.106.172.59/api/wx/qrcode"
+                        },
+                    ]
                 }
-              ]
+            ]
         }
         """
     menu.Menu.create(menu_json, get_access_token_for_wx()[0])      # 创建微信公众号菜单

@@ -63,9 +63,12 @@ class WxHandle(object):
                             WxHandle.get_union_id(open_id, get_access_token_for_wx()[0])
 
                             return reply_msg.send()
+                        elif rec_msg.EventKey == 'mpHello':
+                            content = u"编写中，尚未完成，你点击了“你好”".encode('utf-8')
+                            return reply.TextMsg(to_user, from_user, content).send()
                     elif isinstance(rec_msg, receive.Subscribe):
                         if rec_msg.Event == 'subscribe':
-                            content = u"欢迎关注“和仲舞管家”，通过本公众号，可以查看孩子的剩余课时/课次，上课签到，上课评价等信息。".encode('utf-8')
+                            content = u"欢迎关注“和仲舞管家”，通过本公众号，您可以查看孩子的剩余课时/课次，上课签到，上课评价等信息。".encode('utf-8')
                             return reply.TextMsg(to_user, from_user, content).send()
                         else:   # unsubscribe
                             return reply.Msg().send()

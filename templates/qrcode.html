@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>二维码生成方案测试</title>
+    <script type="text/javascript" src="/static/lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/lib/qrcode/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="/static/lib/hz/utf16to8.js"></script>
+</head>
+<body>
+<div align="center">
+    <input type="text" id="inputStr"><button id="btn">生成二维码</button><hr>
+    <div id="current" style="color:red;font-size:20px;"></div>
+    <div id="erWeiMa"></div>
+</div>
+
+<script type="text/javascript">
+    $("#btn").click(function(){
+        //清空二维码
+        $("#erWeiMa").empty();
+        $("#current").empty();
+        //输入内容验证
+        if($("#inputStr").val() == "")
+        {
+            alert("请输入要生成二维码的内容!");
+            return;
+        }
+        /**
+        *   参数列表
+        *   render   : "canvas",//设置渲染方式
+            width       : 256,     //设置宽度
+            height      : 256,     //设置高度
+            typeNumber  : -1,      //计算模式
+            correctLevel    : QRErrorCorrectLevel.H,//纠错等级
+            background      : "#ffffff",//背景颜色
+            foreground      : "#000000" //前景颜色
+        *
+        */
+        //生成二维码
+        $("#erWeiMa").qrcode({
+            render:"canvas",  //table canvas
+            text:utf16to8($("#inputStr").val())
+        });
+        $("#current").append($("#inputStr").val());
+        $("#inputStr").val("");
+    });
+</script>
+</body>
+</html>
