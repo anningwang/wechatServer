@@ -14,7 +14,7 @@ import hashlib
 import time
 import struct
 from Crypto.Cipher import AES
-import xml.etree.cElementTree as ET
+import xml.etree.cElementTree as cElementTree
 import socket
 import error
 
@@ -82,7 +82,7 @@ class XMLParse:
         @return: 提取出的加密消息字符串
         """
         try:
-            xml_tree = ET.fromstring(xml_text)
+            xml_tree = cElementTree.fromstring(xml_text)
             encrypt = xml_tree.find("Encrypt")
             to_user_name = xml_tree.find("ToUserName")
             return error.WXBizMsgCrypt_OK, encrypt.text, to_user_name.text

@@ -29,6 +29,11 @@ def api_wx_qrcode():
     return render_template('qrcode.html')
 
 
+@app.route('/api/wx/weui',  methods=['GET', 'POST'])
+def api_wx_weui():
+    return render_template('weui.html')
+
+
 if __name__ == '__main__':
     ip = get_ip()
     app.run(host=ip, port=80)

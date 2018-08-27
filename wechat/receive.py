@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # filename: receive.py
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ElementTree
 
 
 def parse_xml(web_data):
     if len(web_data) == 0:
         return None
-    xml_data = ET.fromstring(web_data)
+    xml_data = ElementTree.fromstring(web_data)
     msg_type = xml_data.find('MsgType').text
     if msg_type == 'text':
         return TextMsg(xml_data)

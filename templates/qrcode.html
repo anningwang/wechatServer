@@ -9,56 +9,55 @@
 </head>
 <body>
 <div align="center">
-    <input type="text" id="inputStr"><button id="btn">生成二维码</button><hr>
-    <div id="current" style="color:red;font-size:20px;"></div>
-    <div id="erWeiMa"></div>
-    <div id="imageQrDiv"></div>
+    <input type="text" id="input_text"><button id="btnGenQrCode">生成二维码</button><hr>
+    <div id="qr_caption" style="color:red;font-size:20px;"></div>
+    <div id="qrcode" style="display:none"></div>
+    <div id="image_qrcode"></div>
 </div>
 
 <script type="text/javascript">
-    $("#btn").click(function(){
-        //清空二维码
-        $("#erWeiMa").empty();
-        $("#current").empty();
-        //输入内容验证
-        if($("#inputStr").val() == "")
+    $("#btnGenQrCode").click(function(){
+        // 清空二维码
+        var $qrcode = $('#qrcode');
+        var $qr_caption = $('#qr_caption');
+        var $input_text = $('#input_text');
+        var $image_qrcode = $('#image_qrcode');
+
+        $qrcode.empty();
+        $qr_caption.empty();
+        // 输入内容验证
+        if($input_text.val() == "")
         {
             alert("请输入要生成二维码的内容!");
             return;
         }
-        /**
-        *   参数列表
-        *   render   : "canvas",//设置渲染方式
-            width       : 256,     //设置宽度
-            height      : 256,     //设置高度
-            typeNumber  : -1,      //计算模式
-            correctLevel    : QRErrorCorrectLevel.H,//纠错等级
-            background      : "#ffffff",//背景颜色
-            foreground      : "#000000" //前景颜色
-        *
-        */
-        //生成二维码
-        $("#erWeiMa").qrcode({
-            render:"canvas",  //table canvas
-            text:utf16to8($("#inputStr").val())
+
+        // 生成二维码
+        $qrcode.qrcode({
+            render: "canvas",           // 设置渲染方式 table or canvas
+            width: 256,                 // 设置宽度
+            height: 256,                // 设置高度
+            typeNumber : -1,            // 计算模式
+            correctLevel: 2,            // 纠错等级
+            background: "#ffffff",      // 背景颜色
+            foreground: "#000000",      // 前景颜色
+            text:utf16to8($input_text.val())
         });
-        $("#current").append($("#inputStr").val());
-        $("#inputStr").val("");
+        $qr_caption.append($input_text.val());
+        $input_text.val("");
 
         // 获取网页中的canvas对象
-
-        var myCanvas1=document.getElementsByTagName('canvas')[0];
+        var myCanvas1 = document.getElementsByTagName('canvas')[0];
 
         // 将转换后的img标签插入到html中
-
-        var img=convertCanvasToImage(myCanvas1);
-
-         $('#imageQrDiv').append(img);      // imageQrDiv表示你要插入的容器id
+        var img = convertCanvasToImage(myCanvas1);
+        $image_qrcode.find("img").remove();     // 移除之前的 img
+        $image_qrcode.append(img);
     });
 
-    //从 canvas 提取图片 image
+    // 从 canvas 提取图片 image
     function convertCanvasToImage(canvas) {
-        //新Image对象，可以理解为DOM
+        // 新Image对象，可以理解为DOM
         var image = new Image();
         // canvas.toDataURL 返回的是一串Base64编码的URL，当然,浏览器自己肯定支持
         // 指定格式 PNG
