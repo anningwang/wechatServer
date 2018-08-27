@@ -2,20 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>二维码生成方案测试</title>
+    <link rel="stylesheet" href="/static/lib/weui/weui.min.css">
     <script type="text/javascript" src="/static/lib/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/static/lib/qrcode/jquery.qrcode.min.js"></script>
     <script type="text/javascript" src="/static/lib/hz/utf16to8.js"></script>
 </head>
-<body>
-<div align="center">
-    <input type="text" id="input_text"><button id="btnGenQrCode">生成二维码</button><hr>
-    <div id="qr_caption" style="color:red;font-size:20px;"></div>
-    <div id="qrcode" style="display:none"></div>
-    <div id="image_qrcode"></div>
-</div>
+<body ontouchstart>
+
+    <div class="weui-cells__title">请输入要生成二维码的内容</div>
+    <div class="weui-cells">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="text" id="input_text" placeholder="请输入文本">
+            </div>
+        </div>
+    </div>
+    <div class="weui-btn-area">
+        <a class="weui-btn weui-btn_primary" href="javascript:" id="btnGenQrCode">生成二维码</a>
+    </div>
+
+    <div align="center">
+        <div id="qr_caption" style="color:red;font-size:20px;"></div>
+        <div id="qrcode" style="display:none"></div>
+        <div id="image_qrcode"></div>
+    </div>
 
 <script type="text/javascript">
+
     $("#btnGenQrCode").click(function(){
         // 清空二维码
         var $qrcode = $('#qrcode');
@@ -44,7 +59,7 @@
             text:utf16to8($input_text.val())
         });
         $qr_caption.append($input_text.val());
-        $input_text.val("");
+        // $input_text.val("");
 
         // 获取网页中的canvas对象
         var myCanvas1 = document.getElementsByTagName('canvas')[0];

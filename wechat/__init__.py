@@ -79,6 +79,11 @@ def create_menu():
                     "sub_button":
                     [
                         {
+                            "type": "view",
+                            "name": "测试WeUI",
+                            "url": "http://47.106.172.59/api/wx/weui"
+                        },
+                        {
                             "type": "click",
                             "name": "你好",
                             "key": "mpHello"
@@ -87,11 +92,6 @@ def create_menu():
                             "type": "view",
                             "name": "测试二维码",
                             "url": "http://47.106.172.59/api/wx/qrcode"        // www.hzwugj.com   47.106.172.59
-                        },
-                        {
-                            "type": "view",
-                            "name": "测试WeUI",
-                            "url": "http://47.106.172.59/api/wx/weui"        // www.hzwugj.com   47.106.172.59
                         }
                     ]
                 }
