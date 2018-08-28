@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>WeUI</title>
     <link rel="stylesheet" href="/static/lib/weui/weui.min.css">
+    <style>
+        .weui-grid{
+            position:relative;
+            float:left;
+            padding:20px 10px;
+            width:25%;
+            box-sizing:border-box;
+        }
+
+        .weui-grid__icon{
+          width:38px;
+          height:38px;
+          margin:0 auto;
+        }
+    </style>
 </head>
 <body ontouchstart>
     <!-- Your Code -->
@@ -19,29 +34,54 @@
     <a href="javascript:;" class="weui-btn weui-btn_primary">页面主操作 Normal</a>
 
     <div class="weui-grids">
-        <a href="" class="weui-grid">
-            <div class="weui-grid-icon">
-                <img src="" alt="">
+        <a href="" class="weui-grid js_grid">
+            <div class="weui-grid__icon">
+                <img src="/static/img/firefox.png" alt="">
             </div>
-            <p class="weui-grid-label">第一</p>
+            <p class="weui-grid__label">教务管理</p>
         </a>
-        <a href="" class="weui-grid">
-            <div class="weui-grid-icon">
-                <img src="" alt="">
+        <a href="" class="weui-grid js_grid">
+            <div class="weui-grid__icon">
+                <img src="/static/img/map-marker.png" alt="">
             </div>
-            <p class="weui-grid-label">第二</p>
+            <p class="weui-grid__label">学生管理</p>
         </a>
-        <a href="" class="weui-grid">
-            <div class="weui-grid-icon">
-                <img src="" alt="">
+        <a href="" class="weui-grid js_grid">
+            <div class="weui-grid__icon">
+                <img src="/static/img/setting.png" alt="">
             </div>
-            <p class="weui-grid-label">第三</p>
+            <p class="weui-grid__label">教师管理</p>
         </a>
-        <a href="" class="weui-grid">
-            <div class="weui-grid-icon">
-                <img src="" alt="">
+        <a href="" class="weui-grid js_grid">
+            <div class="weui-grid__icon">
+                <img src="/static/img/personal.png" alt="">
             </div>
-            <p class="weui-grid-label">四</p>
+            <p class="weui-grid__label">四</p>
+        </a>
+
+        <a href="" class="weui-grid js_grid">
+            <div class="weui-grid__icon">
+                <img src="/static/img/shutdown.png" alt="">
+            </div>
+            <p class="weui-grid__label">五</p>
+        </a>
+        <a href="" class="weui-grid js_grid">
+            <div class="weui-grid__icon">
+                <img src="/static/img/account.png" alt="">
+            </div>
+            <p class="weui-grid__label">六</p>
+        </a>
+        <a href="" class="weui-grid js_grid">
+            <div class="weui-grid__icon">
+                <img src="/static/img/bell.png" alt="">
+            </div>
+            <p class="weui-grid__label">七</p>
+        </a>
+        <a href="" class="weui-grid js_grid">
+            <div class="weui-grid__icon">
+                <img src="/static/img/time.png" alt="">
+            </div>
+            <p class="weui-grid__label">八</p>
         </a>
     </div>
 
@@ -69,7 +109,6 @@
         <p class="weui-tabbar__label">我</p>
     </a>
     </div>
-
 
 </body>
 </html>
